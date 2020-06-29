@@ -18,6 +18,7 @@ class UserViewModel {
     weak var delegate: UserViewModelDelegate?
     var users: [User] = []
     var userFiltered: [User] = []
+    var messageError: String = String()
     
     init(userModel: UserModel = UserModel()) {
         self.model = userModel
@@ -44,6 +45,14 @@ class UserViewModel {
                 break
                 case .failure(let error):
                     print(error.localizedDescription)
+                    switch error {
+                        case .internalError:
+                            self?.messageError = "A error ocurred, try later"
+                        case .serverError:
+                            self?.messageError = "Can't connect with server, please check internet connection."
+                        case .requestError:
+                            self?.messageError = "Please contact with admin"
+                    }
                     break
             }
         }
@@ -67,6 +76,14 @@ class UserViewModel {
                     break
                 case .failure(let error):
                     print(error.localizedDescription)
+                    switch error {
+                        case .internalError:
+                            self?.messageError = "A error ocurred, try later"
+                        case .serverError:
+                            self?.messageError = "Can't connect with server, please check internet connection."
+                        case .requestError:
+                            self?.messageError = "Please contact with admin"
+                    }
                     break
             }
             self?.delegate?.reloadTable()
@@ -87,6 +104,14 @@ class UserViewModel {
                     break
                 case .failure(let error):
                     print(error.localizedDescription)
+                    switch error {
+                        case .internalError:
+                            self?.messageError = "A error ocurred, try later"
+                        case .serverError:
+                            self?.messageError = "Can't connect with server, please check internet connection."
+                        case .requestError:
+                            self?.messageError = "Please contact with admin"
+                    }
                     break
             }
         }
